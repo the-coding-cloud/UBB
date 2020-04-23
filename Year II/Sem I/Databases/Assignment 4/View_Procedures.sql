@@ -1,0 +1,40 @@
+CREATE VIEW View1
+AS
+	SELECT * 
+	FROM Booking
+	WHERE Price >= 100
+GO 
+
+CREATE VIEW View2
+AS
+	SELECT F.FlightID, B.PassengerID, B.Price
+	FROM Booking B INNER JOIN Flight F ON B.FlightID = F.FlightID
+GO
+
+CREATE VIEW View3
+AS
+	SELECT P.PilotID, COUNT(P.PilotID) AS NumberOfFlights
+	FROM Flight F INNER JOIN Pilot P ON F.PilotID = P.PilotID
+	GROUP BY P.PilotID
+GO
+
+CREATE PROCEDURE View_1
+AS
+BEGIN
+	SELECT * FROM View1
+END
+GO
+
+CREATE PROCEDURE View_2
+AS
+BEGIN
+	SELECT * FROM View2
+END
+GO
+
+CREATE PROCEDURE View_3
+AS
+BEGIN
+	SELECT * FROM View3
+END
+GO

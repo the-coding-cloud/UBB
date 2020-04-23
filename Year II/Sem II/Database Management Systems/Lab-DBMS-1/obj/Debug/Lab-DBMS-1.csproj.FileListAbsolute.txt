@@ -1,0 +1,10 @@
+D:\`Facultate\FMI\Sem IV\DBMS\Lab-DBMS-1\bin\Debug\Lab-DBMS-1.exe.config
+D:\`Facultate\FMI\Sem IV\DBMS\Lab-DBMS-1\bin\Debug\Lab-DBMS-1.exe
+D:\`Facultate\FMI\Sem IV\DBMS\Lab-DBMS-1\bin\Debug\Lab-DBMS-1.pdb
+D:\`Facultate\FMI\Sem IV\DBMS\Lab-DBMS-1\obj\Debug\Lab-DBMS-1.csprojAssemblyReference.cache
+D:\`Facultate\FMI\Sem IV\DBMS\Lab-DBMS-1\obj\Debug\Lab_DBMS_1.Form1.resources
+D:\`Facultate\FMI\Sem IV\DBMS\Lab-DBMS-1\obj\Debug\Lab_DBMS_1.Properties.Resources.resources
+D:\`Facultate\FMI\Sem IV\DBMS\Lab-DBMS-1\obj\Debug\Lab-DBMS-1.csproj.GenerateResource.cache
+D:\`Facultate\FMI\Sem IV\DBMS\Lab-DBMS-1\obj\Debug\Lab-DBMS-1.csproj.CoreCompileInputs.cache
+D:\`Facultate\FMI\Sem IV\DBMS\Lab-DBMS-1\obj\Debug\Lab-DBMS-1.exe
+D:\`Facultate\FMI\Sem IV\DBMS\Lab-DBMS-1\obj\Debug\Lab-DBMS-1.pdb

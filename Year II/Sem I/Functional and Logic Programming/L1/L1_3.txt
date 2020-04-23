@@ -1,0 +1,44 @@
+3.
+
+a) insert(l1,...,ln, A, pos) =
+	- [], if n=0 
+	- l1 U insert(l2,...,ln, A, pos+1), if pos%2=1
+	- {l1, A} U insert(l2,...,ln, A, pos+1), if pos%2=0
+
+b) get_all(l1,....,ln) = 
+	- [], if n=0
+	- l1 U get_all(l2,...,ln), if l1 = atom
+	- get_all(l1) U get_all(l2,...,ln), if l1 = list
+
+   reverse_linear(l1,...,ln) =
+	- [], if n=0
+	- reverse_linear U l1, otherwise
+
+c) gcd(a, b) =
+	- nil, if a, b = not numbers
+	- a, if b - not number
+	- b, if a - not number
+	- b, if a = 0
+	- a, if b = 0
+	- gcd(b, a%b)
+
+  gcd_list(l1,...,ln) =
+	- nil, if n=0
+	- l1, if l1 - atom, n=1
+	- gcd(l1, gcd_list(l2,...,ln)), if l1 = atom
+	- gcd(gcd_list(l1), gcd_list(l2,...,ln)), if l1 = list 
+
+d) count_occurrence(l1,...,ln, e) = 
+	- 0, if n=0
+	- count_occurence(l1, e) + count_occurence(l2,...,ln,e), if l1 - list
+	- 1 + count_occurence(l2,...,ln, e), if l1 = e
+	- 0 + count_occurence(l2,...,ln, e), if l1 != e
+
+
+3.
+a) Write a function that inserts in a linear list a given atom A after the 2nd, 4th, 6th, ... element.
+b) Write a function to get from a given list the list of all atoms, on any
+ level, but reverse order. Example:
+ (((A B) C) (D E)) ==> (E D C B A)
+c) Write a function that returns the greatest common divisor of all numbers in a nonlinear list.
+d) Write a function that determines the number of occurrences of a given atom in a nonlinear list.

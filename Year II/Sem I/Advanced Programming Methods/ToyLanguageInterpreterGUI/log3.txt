@@ -1,0 +1,157 @@
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[int v; a = TRUE; if (a) then (v = 2) else (v = 3); Print v, bool a]
+--- Symbol Table ---
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[int v; a = TRUE; if (a) then (v = 2) else (v = 3); Print v]
+--- Symbol Table ---
+a --> FALSE
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[a = TRUE; if (a) then (v = 2) else (v = 3); Print v, int v]
+--- Symbol Table ---
+a --> FALSE
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[a = TRUE; if (a) then (v = 2) else (v = 3); Print v]
+--- Symbol Table ---
+a --> FALSE
+v --> 0
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[if (a) then (v = 2) else (v = 3); Print v, a = TRUE]
+--- Symbol Table ---
+a --> FALSE
+v --> 0
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[if (a) then (v = 2) else (v = 3); Print v]
+--- Symbol Table ---
+a --> TRUE
+v --> 0
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Print v, if (a) then (v = 2) else (v = 3)]
+--- Symbol Table ---
+a --> TRUE
+v --> 0
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Print v, v = 2]
+--- Symbol Table ---
+a --> TRUE
+v --> 0
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Print v]
+--- Symbol Table ---
+a --> TRUE
+v --> 2
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[]
+--- Symbol Table ---
+a --> TRUE
+v --> 2
+
+--- Output List ---
+2
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+

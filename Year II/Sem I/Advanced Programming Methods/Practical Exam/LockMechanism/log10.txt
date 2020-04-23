@@ -1,0 +1,1454 @@
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Ref(int) v2; int x; int q; new(v1 20); new(v2 30); newLock(x); fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), Ref(int) v1]
+--- Symbol Table ---
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Ref(int) v2; int x; int q; new(v1 20); new(v2 30); newLock(x); fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+v1 --> (0, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[int x; int q; new(v1 20); new(v2 30); newLock(x); fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), Ref(int) v2]
+--- Symbol Table ---
+v1 --> (0, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[int x; int q; new(v1 20); new(v2 30); newLock(x); fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+v1 --> (0, int)
+v2 --> (0, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[int q; new(v1 20); new(v2 30); newLock(x); fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), int x]
+--- Symbol Table ---
+v1 --> (0, int)
+v2 --> (0, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[int q; new(v1 20); new(v2 30); newLock(x); fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+x --> 0
+v1 --> (0, int)
+v2 --> (0, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[new(v1 20); new(v2 30); newLock(x); fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), int q]
+--- Symbol Table ---
+x --> 0
+v1 --> (0, int)
+v2 --> (0, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[new(v1 20); new(v2 30); newLock(x); fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 0
+x --> 0
+v1 --> (0, int)
+v2 --> (0, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[new(v2 30); newLock(x); fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), new(v1 20)]
+--- Symbol Table ---
+q --> 0
+x --> 0
+v1 --> (0, int)
+v2 --> (0, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[new(v2 30); newLock(x); fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 0
+x --> 0
+v1 --> (1, int)
+v2 --> (0, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[newLock(x); fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), new(v2 30)]
+--- Symbol Table ---
+q --> 0
+x --> 0
+v1 --> (1, int)
+v2 --> (0, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[newLock(x); fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 0
+x --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), newLock(x)]
+--- Symbol Table ---
+q --> 0
+x --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)); newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 0
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), fork(fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x))]
+--- Symbol Table ---
+q --> 0
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[newLock(q); fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 0
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[fork(lock(x); wH(v1, rH(v1)-1); unlock(x)); lock(x); wH(v1, rH(v1)*10); unlock(x)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), newLock(q)]
+--- Symbol Table ---
+q --> 0
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[lock(x); wH(v1, rH(v1)*10); unlock(x), fork(lock(x); wH(v1, rH(v1)-1); unlock(x))]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)); Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[lock(x); wH(v1, rH(v1)*10); unlock(x)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 3 ---
+--- Execution Stack ---
+[lock(x); wH(v1, rH(v1)-1); unlock(x)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), fork(fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q))]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[wH(v1, rH(v1)*10); unlock(x), lock(x)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 3 ---
+--- Execution Stack ---
+[wH(v1, rH(v1)-1); unlock(x), lock(x)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Nope; Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[wH(v1, rH(v1)*10); unlock(x), lock(x)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 3 ---
+--- Execution Stack ---
+[wH(v1, rH(v1)-1); unlock(x)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q)); lock(q); wH(v2, rH(v2)*10); unlock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), Nope]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[wH(v1, rH(v1)*10); unlock(x), lock(x)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 3 ---
+--- Execution Stack ---
+[unlock(x), wH(v1, rH(v1)-1)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[lock(q); wH(v2, rH(v2)*10); unlock(q), fork(lock(q); wH(v2, (rH(v2)+5)); unlock(q))]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 20
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Nope; Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[wH(v1, rH(v1)*10); unlock(x), lock(x)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 3 ---
+--- Execution Stack ---
+[unlock(x)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[lock(q); wH(v2, rH(v2)*10); unlock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 5 ---
+--- Execution Stack ---
+[lock(q); wH(v2, (rH(v2)+5)); unlock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), Nope]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[wH(v1, rH(v1)*10); unlock(x)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 3 ---
+--- Execution Stack ---
+[]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[wH(v2, rH(v2)*10); unlock(q), lock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 5 ---
+--- Execution Stack ---
+[wH(v2, (rH(v2)+5)); unlock(q), lock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Nope; Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[unlock(x), wH(v1, rH(v1)*10)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[wH(v2, rH(v2)*10); unlock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 5 ---
+--- Execution Stack ---
+[wH(v2, (rH(v2)+5)); unlock(q), lock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 19
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), Nope]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[unlock(x)]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[unlock(q), wH(v2, rH(v2)*10)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 5 ---
+--- Execution Stack ---
+[wH(v2, (rH(v2)+5)); unlock(q), lock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Nope; lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 300
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[]
+--- Symbol Table ---
+x --> 1
+q --> 0
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 300
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[unlock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 300
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 5 ---
+--- Execution Stack ---
+[wH(v2, (rH(v2)+5)); unlock(q), lock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 300
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), Nope]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 300
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 300
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 5 ---
+--- Execution Stack ---
+[wH(v2, (rH(v2)+5)); unlock(q), lock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 300
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[lock(x); Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 300
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 5 ---
+--- Execution Stack ---
+[wH(v2, (rH(v2)+5)); unlock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 300
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q), lock(x)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 300
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 5 ---
+--- Execution Stack ---
+[unlock(q), wH(v2, (rH(v2)+5))]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 300
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Print rH(v1); unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 305
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 5 ---
+--- Execution Stack ---
+[unlock(q)]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 305
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[unlock(x); lock(q); Print rH(v2); unlock(q), Print rH(v1)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 305
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 5 ---
+--- Execution Stack ---
+[]
+--- Symbol Table ---
+x --> 1
+q --> 2
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 305
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[unlock(x); lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+190
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 305
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[lock(q); Print rH(v2); unlock(q), unlock(x)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+190
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 305
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[lock(q); Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+190
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 305
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Print rH(v2); unlock(q), lock(q)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+190
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 305
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[Print rH(v2); unlock(q)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+190
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 305
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[unlock(q), Print rH(v2)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+190
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 305
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[unlock(q)]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+190
+305
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 305
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 1 ---
+--- Execution Stack ---
+[]
+--- Symbol Table ---
+q --> 2
+x --> 1
+v1 --> (1, int)
+v2 --> (2, int)
+
+--- Output List ---
+190
+305
+
+--- File Table ---
+
+--- Heap ---
+1 --> 190
+2 --> 305
+
+------------------------------------------------------
+

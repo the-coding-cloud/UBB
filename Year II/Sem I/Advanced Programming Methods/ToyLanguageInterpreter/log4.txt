@@ -1,0 +1,297 @@
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[string varf; varf = test.in; openFile(varf); int varc; readFile(varf, varc); Print varc; readFile(varf, varc); Print varc; closeFile(varf)]
+--- Symbol Table ---
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[varf = test.in; openFile(varf); int varc; readFile(varf, varc); Print varc; readFile(varf, varc); Print varc; closeFile(varf), string varf]
+--- Symbol Table ---
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[varf = test.in; openFile(varf); int varc; readFile(varf, varc); Print varc; readFile(varf, varc); Print varc; closeFile(varf)]
+--- Symbol Table ---
+varf --> 
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[openFile(varf); int varc; readFile(varf, varc); Print varc; readFile(varf, varc); Print varc; closeFile(varf), varf = test.in]
+--- Symbol Table ---
+varf --> 
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[openFile(varf); int varc; readFile(varf, varc); Print varc; readFile(varf, varc); Print varc; closeFile(varf)]
+--- Symbol Table ---
+varf --> test.in
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[int varc; readFile(varf, varc); Print varc; readFile(varf, varc); Print varc; closeFile(varf), openFile(varf)]
+--- Symbol Table ---
+varf --> test.in
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[int varc; readFile(varf, varc); Print varc; readFile(varf, varc); Print varc; closeFile(varf)]
+--- Symbol Table ---
+varf --> test.in
+
+--- Output List ---
+
+--- File Table ---
+test.in --> java.io.BufferedReader@4e515669
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[readFile(varf, varc); Print varc; readFile(varf, varc); Print varc; closeFile(varf), int varc]
+--- Symbol Table ---
+varf --> test.in
+
+--- Output List ---
+
+--- File Table ---
+test.in --> java.io.BufferedReader@4e515669
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[readFile(varf, varc); Print varc; readFile(varf, varc); Print varc; closeFile(varf)]
+--- Symbol Table ---
+varf --> test.in
+varc --> 0
+
+--- Output List ---
+
+--- File Table ---
+test.in --> java.io.BufferedReader@4e515669
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[Print varc; readFile(varf, varc); Print varc; closeFile(varf), readFile(varf, varc)]
+--- Symbol Table ---
+varf --> test.in
+varc --> 0
+
+--- Output List ---
+
+--- File Table ---
+test.in --> java.io.BufferedReader@4e515669
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[Print varc; readFile(varf, varc); Print varc; closeFile(varf)]
+--- Symbol Table ---
+varf --> test.in
+varc --> 15
+
+--- Output List ---
+
+--- File Table ---
+test.in --> java.io.BufferedReader@4e515669
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[readFile(varf, varc); Print varc; closeFile(varf), Print varc]
+--- Symbol Table ---
+varf --> test.in
+varc --> 15
+
+--- Output List ---
+
+--- File Table ---
+test.in --> java.io.BufferedReader@4e515669
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[readFile(varf, varc); Print varc; closeFile(varf)]
+--- Symbol Table ---
+varf --> test.in
+varc --> 15
+
+--- Output List ---
+15
+
+--- File Table ---
+test.in --> java.io.BufferedReader@4e515669
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[Print varc; closeFile(varf), readFile(varf, varc)]
+--- Symbol Table ---
+varf --> test.in
+varc --> 15
+
+--- Output List ---
+15
+
+--- File Table ---
+test.in --> java.io.BufferedReader@4e515669
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[Print varc; closeFile(varf)]
+--- Symbol Table ---
+varf --> test.in
+varc --> 20
+
+--- Output List ---
+15
+
+--- File Table ---
+test.in --> java.io.BufferedReader@4e515669
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[closeFile(varf), Print varc]
+--- Symbol Table ---
+varf --> test.in
+varc --> 20
+
+--- Output List ---
+15
+
+--- File Table ---
+test.in --> java.io.BufferedReader@4e515669
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[closeFile(varf)]
+--- Symbol Table ---
+varf --> test.in
+varc --> 20
+
+--- Output List ---
+15
+20
+
+--- File Table ---
+test.in --> java.io.BufferedReader@4e515669
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 4 ---
+--- Execution Stack ---
+[]
+--- Symbol Table ---
+varf --> test.in
+varc --> 20
+
+--- Output List ---
+15
+20
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+

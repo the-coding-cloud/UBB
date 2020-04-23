@@ -1,0 +1,246 @@
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[Ref(int) a; v = 10; new(a 22); fork(wH(a, 30); v = 32; Print v; Print rH(a)); Print v; Print rH(a), int v]
+--- Symbol Table ---
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[Ref(int) a; v = 10; new(a 22); fork(wH(a, 30); v = 32; Print v; Print rH(a)); Print v; Print rH(a)]
+--- Symbol Table ---
+v --> 0
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[v = 10; new(a 22); fork(wH(a, 30); v = 32; Print v; Print rH(a)); Print v; Print rH(a), Ref(int) a]
+--- Symbol Table ---
+v --> 0
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[v = 10; new(a 22); fork(wH(a, 30); v = 32; Print v; Print rH(a)); Print v; Print rH(a)]
+--- Symbol Table ---
+a --> (0, int)
+v --> 0
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[new(a 22); fork(wH(a, 30); v = 32; Print v; Print rH(a)); Print v; Print rH(a), v = 10]
+--- Symbol Table ---
+a --> (0, int)
+v --> 0
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[new(a 22); fork(wH(a, 30); v = 32; Print v; Print rH(a)); Print v; Print rH(a)]
+--- Symbol Table ---
+a --> (0, int)
+v --> 10
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[fork(wH(a, 30); v = 32; Print v; Print rH(a)); Print v; Print rH(a), new(a 22)]
+--- Symbol Table ---
+a --> (0, int)
+v --> 10
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[fork(wH(a, 30); v = 32; Print v; Print rH(a)); Print v; Print rH(a)]
+--- Symbol Table ---
+a --> (1, int)
+v --> 10
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 22
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[Print v; Print rH(a), fork(wH(a, 30); v = 32; Print v; Print rH(a))]
+--- Symbol Table ---
+a --> (1, int)
+v --> 10
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 22
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[Print v; Print rH(a)]
+--- Symbol Table ---
+a --> (1, int)
+v --> 10
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 22
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 3 ---
+--- Execution Stack ---
+[wH(a, 30); v = 32; Print v; Print rH(a)]
+--- Symbol Table ---
+a --> (1, int)
+v --> 10
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 22
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[Print rH(a), Print v]
+--- Symbol Table ---
+a --> (1, int)
+v --> 10
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 22
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 3 ---
+--- Execution Stack ---
+[v = 32; Print v; Print rH(a), wH(a, 30)]
+--- Symbol Table ---
+a --> (1, int)
+v --> 10
+
+--- Output List ---
+
+--- File Table ---
+
+--- Heap ---
+1 --> 22
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 2 ---
+--- Execution Stack ---
+[Print rH(a)]
+--- Symbol Table ---
+a --> (1, int)
+v --> 10
+
+--- Output List ---
+10
+
+--- File Table ---
+
+--- Heap ---
+1 --> 30
+
+------------------------------------------------------
+
+------------------------------------------------------
+--- Thread ID: 3 ---
+--- Execution Stack ---
+[v = 32; Print v; Print rH(a)]
+--- Symbol Table ---
+a --> (1, int)
+v --> 10
+
+--- Output List ---
+10
+
+--- File Table ---
+
+--- Heap ---
+1 --> 30
+
+------------------------------------------------------
+

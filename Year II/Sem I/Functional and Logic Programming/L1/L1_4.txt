@@ -1,0 +1,27 @@
+(defun maximum (l maxi)
+    (cond
+        ((null l) maxi)
+        ((and (numberp (car l))(> (car l) maxi)) (maximum (cdr l) (car l)))
+        (T (maximum (cdr l) maxi))))
+
+(print (maximum '(1 2 3 (4 5) 6 7) 0))
+
+(defun findFirstNumber (l)
+    (cond
+        ((null l) nil)
+        ((numberp (car l)) (car l))
+        (T (findFirstNumber (cdr l)))
+    )
+)
+
+(print (findFirstNumber '(A B C D (4 5) 2)))
+
+(defun main (l)
+    (cond
+        ((null (findFirstNumber l)) nil)
+        (T (maximum l (findFirstNumber l)))
+    )
+)
+
+(print (main '(1 2 3 9 (4 5) 6 7)))
+(print (main '(a b c d)))
