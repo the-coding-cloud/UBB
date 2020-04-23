@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Lab12Class</class>
+ <widget class="QMainWindow" name="Lab12Class">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>656</width>
+    <height>641</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Lab12</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="mainWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="adminTab">
+       <attribute name="title">
+        <string>Admin Mode</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QListWidget" name="movieDatabaseWidget"/>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <layout class="QVBoxLayout" name="adminRightLayout">
+              <item>
+               <layout class="QGridLayout" name="inputDataLayout">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="movieTitleLabel">
+                  <property name="text">
+                   <string>Movie Title</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="movieTitleEdit"/>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="movieGenreLabel">
+                  <property name="text">
+                   <string>Movie Genre</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="movieGenreEdit"/>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="releaseYearLabel">
+                  <property name="text">
+                   <string>Release Year</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="releaseYearEdit"/>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="trailerLabel">
+                  <property name="text">
+                   <string>Trailer</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QLineEdit" name="trailerEdit"/>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="likesLabel">
+                  <property name="text">
+                   <string>Likes</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QLineEdit" name="likesEdit"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="buttonsLayout">
+                <item>
+                 <widget class="QPushButton" name="addButton">
+                  <property name="text">
+                   <string>Add</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="updateButton">
+                  <property name="text">
+                   <string>Update</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="removeButton">
+                  <property name="text">
+                   <string>Remove</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="readFileLayout">
+              <item>
+               <widget class="QPushButton" name="loadFilepathButton">
+                <property name="text">
+                 <string>Read File</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="loadFilepathEdit"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="faceChestii">
+              <property name="text">
+               <string>-</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QPushButton" name="undoButton">
+                <property name="text">
+                 <string>Undo</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="redoButton">
+                <property name="text">
+                 <string>Redo</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="userTab">
+       <attribute name="title">
+        <string>User Mode</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <layout class="QVBoxLayout" name="currentMovieLayout">
+              <item>
+               <widget class="QLabel" name="currentMovieLabel">
+                <property name="text">
+                 <string>Movie</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListWidget" name="currentMovieData"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="filterReslutLayout">
+              <item>
+               <widget class="QLabel" name="filterLabel">
+                <property name="text">
+                 <string>Filter</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListWidget" name="filterResultData"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QVBoxLayout" name="userRightLayout">
+              <item>
+               <layout class="QHBoxLayout" name="saveLayout">
+                <item>
+                 <widget class="QLabel" name="movieIDLabel">
+                  <property name="text">
+                   <string>Movie Title</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="movieIDEdit"/>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="saveIDButton">
+                  <property name="text">
+                   <string>Save</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="fileLayout">
+                <item>
+                 <widget class="QLabel" name="filePathLabel">
+                  <property name="text">
+                   <string>Watchlist File Path</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="filePathEdit"/>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="saveFilepath">
+                  <property name="text">
+                   <string>Save Path</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="userButtonLayout">
+                <item>
+                 <widget class="QPushButton" name="nextButton">
+                  <property name="text">
+                   <string>Next</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="showWatchlistButton">
+                  <property name="text">
+                   <string>Show Watchlist</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="openExternallyButton">
+                  <property name="text">
+                   <string>Open Externally</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="filterLayout">
+              <item>
+               <layout class="QGridLayout" name="filterInputDataLayout">
+                <item row="1" column="0">
+                 <widget class="QLabel" name="likesFilterLabel">
+                  <property name="text">
+                   <string>Likes</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="likesFilterEdit"/>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="genreFilterEdit"/>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="genreFilterLabel">
+                  <property name="text">
+                   <string>Genre</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QPushButton" name="filterByLikesButton">
+                <property name="text">
+                 <string>Filter By Likes</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="filterByLikesGenreButton">
+                <property name="text">
+                 <string>Filter By Likes And Genre</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="Lab12.qrc"/>
+ </resources>
+ <connections/>
+</ui>

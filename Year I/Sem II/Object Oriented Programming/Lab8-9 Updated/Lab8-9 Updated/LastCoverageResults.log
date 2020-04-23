@@ -1,0 +1,21 @@
+[2019-05-14 20:58:16] [info] Start Program:
+Path:"D:\Oana\`Facultate\FMI\Sem II\OOP\Lab\Lab8-9 Updated\Debug\Lab8-9 Updated.exe"
+Arguments:
+Working directory: "D:\Oana\`Facultate\FMI\Sem II\OOP\Lab\Lab8-9 Updated\Lab8-9 Updated\"
+Modules: Selected: D:\Oana\`Facultate\FMI\Sem II\OOP\Lab\Lab8-9 Updated\Debug\Lab8-9 Updated.exe Excluded: 
+Sources: Selected: D:\Oana\`Facultate\FMI\Sem II\OOP\Lab\Lab8-9 Updated\Lab8-9 Updated Excluded: 
+Log Level: Normal
+Cover Children: 0
+Aggregate by file: 1
+Continue after C++ exception: 0
+Optimized build support: 0
+Export: Binary C:\Users\Piticu\AppData\Local\Temp\iajbzidx.yo0 
+Input coverage: 
+Unified diff: 
+Excluded line regular expressions: 
+Substitute pdb source paths: 
+
+[2019-05-14 20:58:16] [info] Module: D:\Oana\`Facultate\FMI\Sem II\OOP\Lab\Lab8-9 Updated\Debug\Lab8-9 Updated.exe is selected because it matches selected pattern: D:\Oana\`Facultate\FMI\Sem II\OOP\Lab\Lab8-9 Updated\Debug\Lab8-9 Updated.exe
+[2019-05-14 20:58:17] [info] ----------------------------------------------------
+[2019-05-14 20:58:17] [info] Coverage binary generated in file: C:\Users\Piticu\AppData\Local\Temp\iajbzidx.yo0
+[2019-05-14 20:58:17] [info] ----------------------------------------------------

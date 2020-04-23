@@ -1,0 +1,21 @@
+[2019-06-02 20:36:18] [info] Start Program:
+Path:"D:\Oana\`Facultate\FMI\Sem II\OOP\Lab\Lab12\Win32\Debug\Lab12.exe"
+Arguments:
+Working directory: "D:\Oana\`Facultate\FMI\Sem II\OOP\Lab\Lab12\Lab12\"
+Modules: Selected: D:\Oana\`Facultate\FMI\Sem II\OOP\Lab\Lab12\Win32\Debug\Lab12.exe Excluded: 
+Sources: Selected: D:\Oana\`Facultate\FMI\Sem II\OOP\Lab\Lab12\Lab12 Excluded: 
+Log Level: Normal
+Cover Children: 0
+Aggregate by file: 1
+Continue after C++ exception: 0
+Optimized build support: 0
+Export: Binary C:\Users\Piticu\AppData\Local\Temp\emxdjkxx.niw 
+Input coverage: 
+Unified diff: 
+Excluded line regular expressions: 
+Substitute pdb source paths: 
+
+[2019-06-02 20:36:18] [info] Module: D:\Oana\`Facultate\FMI\Sem II\OOP\Lab\Lab12\Win32\Debug\Lab12.exe is selected because it matches selected pattern: D:\Oana\`Facultate\FMI\Sem II\OOP\Lab\Lab12\Win32\Debug\Lab12.exe
+[2019-06-02 20:36:22] [info] ----------------------------------------------------
+[2019-06-02 20:36:22] [info] Coverage binary generated in file: C:\Users\Piticu\AppData\Local\Temp\emxdjkxx.niw
+[2019-06-02 20:36:22] [info] ----------------------------------------------------
