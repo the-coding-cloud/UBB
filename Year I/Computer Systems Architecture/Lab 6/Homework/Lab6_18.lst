@@ -1,0 +1,56 @@
+     1                                  ; A string of doublewords is given. Order in increasing order the string of the high words 
+     2                                  ;(most significant) from these doublewords. The low words (least significant) remain unchanged.
+     3                                  
+     4                                  bits 32 ; assembling for the 32 bits architecture
+     5                                  
+     6                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     7                                  global start        
+     8                                  
+     9                                  ; declare external functions needed by our program
+    10                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+    11                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+    12                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    13                                  
+    14                                  ; our data is declared here (the variables needed by our program)
+    15                                  segment data use32 class=data
+    16 00000000 7856AB12CDAB561244-         sir DD 12AB5678h, 1256ABCDh, 12344344h
+    16 00000009 433412             
+    17                                      len EQU ($-sir)/4
+    18                                  
+    19                                  ; our code starts here
+    20                                  segment code use32 class=code
+    21                                      start:
+    22 00000000 B903000000                      MOV ECX, len
+    23 00000005 BE[00000000]                    MOV ESI, sir
+    24 0000000A BF[00000000]                    MOV EDI, sir
+    25 0000000F FC                              CLD
+    26 00000010 E32F                            JECXZ finish
+    27                                          sort:
+    28 00000012 66B80000                            MOV AX, 0
+    29 00000016 66AD                                LODSW
+    30 00000018 66AD                                LODSW
+    31 0000001A 51                                  push ECX
+    32 0000001B 83E901                              SUB ECX, 1
+    33 0000001E E321                                JECXZ finish
+    34 00000020 83C704                              ADD EDI, 4
+    35 00000023 89FA                                MOV EDX, EDI
+    36                                              sort_2:
+    37 00000025 66AF                                    SCASW
+    38 00000027 7F02                                    JG swap
+    39 00000029 760C                                    JBE skip_1
+    40                                                  swap:
+    41 0000002B 668B5FFE                                    mov BX, [EDI - 2]
+    42 0000002F 668947FE                                    mov [EDI - 2], AX
+    43 00000033 66895EFE                                    mov [ESI - 2], BX
+    44                                                  skip_1:
+    45 00000037 83C702                                  ADD EDI, 2
+    46 0000003A E2E9                                loop sort_2
+    47 0000003C 59                                  pop ECX
+    48 0000003D 89D7                                MOV EDI, EDX
+    49 0000003F E2D1                            loop sort
+    50                                          
+    51                                          finish:
+    52                                      
+    53                                          ; exit(0)
+    54 00000041 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    55 00000043 FF15[00000000]                  call    [exit]       ; call exit to terminate the program

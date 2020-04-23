@@ -1,0 +1,44 @@
+     1                                  	; Write a program in the assembly language that computes the following arithmetic expression, considering the following data types for the variables:
+     2                                  ; a - byte, b - word
+     3                                  ; (b / a * 2 + 10) * b - b * 15;
+     4                                  ; ex. 1: a = 10; b = 40; Result: (40 / 10 * 2 + 10) * 40 - 40 * 15 = 18 * 40 - 1600 = 720 - 600 = 120
+     5                                  ; ex. 2: a = 100; b = 50; Result: (50 / 100 * 2 + 10) * 50 - 50 * 15 = 12 * 50 - 750 = 600 - 750 = - 150
+     6                                  bits 32 ;assembling for the 32 bits architecture
+     7                                  ; the start label will be the entry point in the program
+     8                                  global  start 
+     9                                  
+    10                                  extern  exit ; we inform the assembler that the exit symbol is foreign, i.e. it exists even if we won't be defining it
+    11                                  
+    12                                  import  exit msvcrt.dll; exit is a function that ends the process, it is defined in msvcrt.dll
+    13                                          ; msvcrt.dll contains exit, printf and all the other important C-runtime functions
+    14                                  segment  data use32 class=data ; the data segment where the variables are declared 
+    15 00000000 0A                      	a  db 10
+    16 00000001 2800                    	b  dw 40
+    17                                  segment  code use32 class=code ; code segment
+    18                                  start: 
+    19 00000000 66A1[01000000]          	mov  AX, [b] ;AX = b
+    20 00000006 F635[00000000]          	div  BYTE [a] ;AL = AX / a = b / a and AH = AX % a = b % a
+    21                                  	
+    22 0000000C B402                    	mov  AH, 2 ;AH = 2
+    23 0000000E F6E4                    	mul  AH ;AX = AL * AH = b / a * 2	
+    24                                  	
+    25 00000010 6683C00A                	add  AX, 10 ;AX = AX + b = b / a * 2 + 10
+    26                                  	
+    27 00000014 66F725[01000000]        	mul  word [b] ;DX:AX = AX * b = (b / a * 2 + 10) * b
+    28                                  	
+    29 0000001B 6652                    	push  DX ;the high part of the doubleword DX:AX is saved on the stack
+    30 0000001D 6650                    	push  AX ;the low part of the doubleword DX:AX is saved on the stack
+    31 0000001F 5B                      	pop  EBX ;EBX = DX:AX = (b / a * 2 + 10) * b
+    32                                  	
+    33 00000020 66A1[01000000]          	mov  AX, [b] ;AX = b
+    34 00000026 66BA0F00                	mov  DX, 15 ;DX = 15
+    35 0000002A 66F7E2                  	mul  DX ;DX:AX = b * 15
+    36                                  	
+    37 0000002D 6652                    	push  DX ;the high part of the doubleword DX:AX is saved on the stack
+    38 0000002F 6650                    	push  AX ;the low part of the doubleword DX:AX is saved on the stack
+    39 00000031 58                      	pop  EAX ;EAX = DX:AX = b * 15
+    40                                  	
+    41 00000032 29C3                    	sub  EBX, EAX ;EBX = EBX - EAX = (b / a * 2 + 10) * b - b * 15
+    42                                  	
+    43 00000034 6A00                    	push   dword 0 ;saves on stack the parameter of the function exit
+    44 00000036 FF15[00000000]          	call   [exit] ; function exit is called in order to end the execution of the program

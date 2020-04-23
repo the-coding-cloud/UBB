@@ -1,0 +1,146 @@
+     1                                  ;A text file is given. The text contains letters, spaces and points. Read the content of the file, determine the number of words and display the result on the screen. (A word is a sequence of characters separated by
+     2                                  
+     3                                  bits 32
+     4                                  
+     5                                  global start
+     6                                  
+     7                                  ; declare external functions needed by our program
+     8                                  extern exit, fopen, fread, fclose, printf
+     9                                  import printf msvcrt.dll
+    10                                  import exit msvcrt.dll
+    11                                  import fopen msvcrt.dll
+    12                                  import fread msvcrt.dll
+    13                                  import fclose msvcrt.dll
+    14                                  
+    15                                  ; our data is declared here (the variables needed by our program)
+    16                                  segment data use32 class=data
+    17 00000000 696E7075742E747874-         file_name db "input.txt", 0   ; filename to be read --- in our case "input.txt"
+    17 00000009 00                 
+    18 0000000A 7200                        access_mode db "r", 0         ; file access mode:
+    19                                                                    ; r - opens a file for reading. The file must exist. 
+    20 0000000C FFFFFFFF                    file_descriptor dd -1         ; variable to hold the file descriptor
+    21                                      len equ 100                   ; maximum number of characters to read
+    22 00000010 00<rept>                    text times len db 0           ; string to hold the text which is read from file
+    23 00000074 00000000                    stop_here dd 0                ; this memory location is exactly after our stored text and it helps us know where to stop the iterations
+    24 00000078 25642000                    format db "%d ",0
+    25                                      
+    26                                  ; our code starts here
+    27                                  segment code use32 class=code
+    28                                      start:
+    29                                          ; Call fopen() to create the file
+    30                                          ; fopen() will return a file descriptor in the EAX or 0 in case of error
+    31                                          ; eax = fopen(file_name, access_mode)
+    32 00000000 68[0A000000]                    push dword access_mode     
+    33 00000005 68[00000000]                    push dword file_name
+    34 0000000A FF15[00000000]                  call [fopen]
+    35 00000010 83C408                          add esp, 4*2                ; Clean-up the stack
+    36                                  
+    37 00000013 A3[0C000000]                    mov [file_descriptor], eax  ; Store the file descriptor returned by fopen
+    38                                  
+    39                                          ; Check if fopen() has successfully opened the file (EAX != 0)
+    40 00000018 83F800                          cmp eax, 0
+    41 0000001B 0F8493000000                    je final   ; If the file does not exist or an error occured, we just directly to the end of the code
+    42                                  
+    43 00000021 B301                            mov bl, 1       ; We consider the initial character to be a space/period
+    44 00000023 BF00000000                      mov edi, 0      ; This will be the count for the transitions from space/period to character and vice-versa
+    45                                          
+    46                                          read:  
+    47                                              ; Read the text from file using fread()
+    48                                              ; After the fread() call, EAX will contain the number of chars we've read 
+    49                                              ; eax = fread(text, 1, len, file_descriptor)        
+    50 00000028 FF35[0C000000]                      push dword [file_descriptor]
+    51 0000002E 6A64                                push dword len
+    52 00000030 6A01                                push dword 1
+    53 00000032 68[10000000]                        push dword text
+    54 00000037 FF15[00000000]                      call [fread]
+    55 0000003D 83C410                              add esp, 4*4
+    56                                              
+    57                                              ; If we haven't read any new element, we jump to the next part
+    58 00000040 83F800                              cmp eax, 0
+    59 00000043 7442                                je reading_is_over
+    60                                              
+    61 00000045 BE[10000000]                        mov esi, text ; Here we store the address of the memory location of our text
+    62                                              
+    63                                              measure:
+    64 0000004A 81FE[74000000]                          cmp esi, stop_here   ; We check if the current address is the same as the "stop_here" address
+    65 00000050 74D6                                    je read              ; If the addresses match, we...stop the comparisons there and do the reading again
+    66                                                  
+    67 00000052 AC                                      lodsb                ; We load the current character
+    68                                                  
+    69                                                  ; When reading less than len characters, the rest of the characters remain from the previously read text, so we need to make sure we don't have any leftover words
+    70                                                  ; Therefore, we change each character to ' ' after loading it and it won't affect the final result in any way
+    71 00000053 C646FF20                                mov [esi-1], byte ' '
+    72                                                  
+    73 00000057 3C00                                    cmp al, 0            ; This is how we realize we haven't read anything from that point and beyond
+    74 00000059 74EF                                    je measure
+    75                                                  
+    76                                                  ; We can split our problem into 4 possibilities:
+    77                                                  ; 1. a) The previous character was a letter (bl=0), the current character is a letter
+    78                                                  ;    b) The previous character was a letter (bl=0), the current character is a space/period (we increment edi in this situation)
+    79                                                  ; 2. a) The previous character was a space/period (bl=1), the current character is a letter (we increment edi in this situation)
+    80                                                  ;    b) The previous character was a space/period (bl=1), the current character is a space/period)
+    81                                                  ; At the end, the number of words is equal to (edi+1)/2 (deduced the formula after analyzing all the possible combinations)
+    82                                                  
+    83 0000005B 80FB00                                  cmp bl, 0 ; The prev. character was a letter
+    84 0000005E 7405                                    je case_1
+    85                                                  
+    86 00000060 80FB01                                  cmp bl, 1 ; The prev. character was a space/period
+    87 00000063 7411                                    je case_2
+    88                                                  
+    89                                                  case_1:
+    90 00000065 3C20                                        cmp al, " "
+    91 00000067 7408                                        je what_to_do_1
+    92 00000069 3C2E                                        cmp al, "."
+    93 0000006B 7404                                        je what_to_do_1
+    94                                                      
+    95                                                      ; Case 1.a
+    96 0000006D B300                                        mov bl, 0    ; We set bl to 0 to mark that our current character is a letter, then move to the next character
+    97 0000006F EBD9                                        jmp measure
+    98                                                      
+    99                                                      ; Case 1.b
+   100                                                      what_to_do_1:
+   101 00000071 B301                                            mov bl, 1; We set bl to 1 to mark that our current character is a space/period, then move to the next character
+   102 00000073 47                                              inc edi  ; We increment our counter
+   103 00000074 EBD4                                            jmp measure
+   104                                                  
+   105                                                  case_2:
+   106 00000076 3C20                                        cmp al, " "
+   107 00000078 7409                                        je what_to_do_2
+   108 0000007A 3C2E                                        cmp al, "."
+   109 0000007C 7405                                        je what_to_do_2
+   110                                                      
+   111                                                      ; Case 2.a
+   112 0000007E B300                                        mov bl, 0   ; We set bl to 0 to mark that our current character is a letter, then move to the next character
+   113 00000080 47                                          inc edi     ; We increment our counter
+   114 00000081 EBC7                                        jmp measure
+   115                                                       
+   116                                                      ; Case 2.b
+   117                                                      what_to_do_2:
+   118 00000083 B301                                            mov bl, 1 ; We set bl to 1 to mark that our current character is a space/period, then move to the next character
+   119 00000085 EBC3                                            jmp measure         
+   120                                  
+   121                                          reading_is_over:
+   122                                          
+   123                                          ; We perform our operations on the number of transitions from space/period to characters and vice versa
+   124 00000087 47                              inc edi
+   125 00000088 89F8                            mov eax, edi
+   126 0000008A BA00000000                      mov edx, 0
+   127 0000008F B902000000                      mov ecx, 2
+   128 00000094 F7F1                            div ecx
+   129                                  
+   130 00000096 50                              push eax
+   131 00000097 68[78000000]                    push dword format
+   132 0000009C FF15[00000000]                  call [printf]      
+   133 000000A2 83C408                          add esp, 4*2
+   134                                          
+   135                                          ; call fclose() to close the file
+   136                                          ; fclose(file_descriptor)
+   137 000000A5 FF35[0C000000]                  push dword [file_descriptor]
+   138 000000AB FF15[00000000]                  call [fclose]
+   139 000000B1 83C404                          add esp, 4
+   140                                  
+   141                                        final:
+   142                                          
+   143                                          ; exit(0)
+   144 000000B4 6A00                            push dword 0
+   145 000000B6 FF15[00000000]                  call [exit]

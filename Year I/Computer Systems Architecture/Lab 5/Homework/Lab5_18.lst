@@ -1,0 +1,85 @@
+     1                                  ; Two byte strings A and B are given. Obtain the string R that contains only the odd positive elements of the two strings.
+     2                                  
+     3                                  bits 32 
+     4                                  global start        
+     5                                  extern exit ; tell nasm that exit exists even if we won't be defining it
+     6                                  import exit msvcrt.dll ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     7                                  ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+     8                                  ; our data is declared here (the variables needed by our program)
+     9                                  segment data use32 class=data
+    10                                  
+    11 00000000 0102FD0405              	a db 1, 2, -3, 4, 5
+    12                                  	len_a equ $-a ; This is the length of the byte string a
+    13 00000005 0102FD0407                  b db 1, 2, -3, 4, 7 
+    14                                  	len_b equ $-b ; This is the length of the byte string b
+    15 0000000A 00<rept>                	r times len_a+len_b db 0 ; We initialize the destination string with the sum of the two previous lengths (in case all the numbers from a and b are odd and positive)
+    16                                  
+    17                                  segment code use32 class=code
+    18                                  start:
+    19 00000000 B905000000              	mov ecx, len_a  ; We move the length of a in ecx in order to perform the loop "ecx" times --- ecx = 5
+    20 00000005 BE00000000              	mov esi, 0      ; We start from the beggining of the string --- esi = 0
+    21 0000000A BF00000000                  mov edi, 0      ; We start putting the requested numbers from the beginning of the destination string --- edi = 0
+    22 0000000F E329                    	jecxz Skip_to_b ; If ecx is 0, we just go to the part where we check the numbers in string b
+    23                                      
+    24                                  	Check_sign_a:
+    25 00000011 8A86[00000000]          		mov al, [a+esi]   ; We move the first byte into al in order to do all the calculations that we need - for the first iteration, al = 01
+    26 00000017 3C00                            cmp al, 0         ; Here, we do the fictional subtraction in order to check if the value in al is greater or not than 0 - for the first iteration, the result is 1
+    27 00000019 7F02                            jg Check_parity_a ; If al is greater than 0 (therefore, positive), we can jump to the next part, where we check the parity of the number
+    28 0000001B EB1A                            jmp Do_nothing_a  ; If we reach this instruction, our number is not positive, so we skip to the end of this iteration
+    29                                          
+    30                                          Check_parity_a:
+    31 0000001D B400                                mov ah, 0     ; We will perform an unsigned division and we need to divide a word to a byte, therefore we need to extend al - for the first iteration, ah = 0001
+    32 0000001F B302                                mov bl, 2     ; This will be our divisor. We divide by 2 to see if the remainder is different or not from 0
+    33 00000021 F6F3                                div bl        ; We perform the division and the remainder is stored in ax. For the first iteration, ax = 01
+    34 00000023 80FC00                              cmp ah, 0     ; We do the fictional subtraction in order to check if the remainder is 0 or not
+    35 00000026 7502                                jnz Move_a    ; If the remainder is not 0, therefore the initial number is odd, we go to the part where we move our positive, odd number into the destination string
+    36 00000028 EB0D                                jmp Do_nothing_a ; If we reach this instruction, our number is not odd, so we skip to the end of this iteration
+    37                                      
+    38                                          Move_a:
+    39 0000002A 8A86[00000000]                      mov al, [a+esi] ; We lost the number when we performed the division, so we move it once again in al
+    40 00000030 8887[0A000000]                      mov [r+edi], al ; We move the number into our destination string
+    41 00000036 47                                  inc edi         ; We increase the index in the destination string
+    42                                              
+    43                                          Do_nothing_a:
+    44                                          
+    45 00000037 46                              inc esi ; We increase the index in the source string
+    46                                          
+    47 00000038 E2D7                    	loop Check_sign_a ; We do it all over again until ecx becomes 0 - after the first iteration, ecx = 4
+    48                                      
+    49                                      ; We perform exactly the same operations on string b 
+    50                                      
+    51                                      Skip_to_b:
+    52 0000003A B905000000                  mov ecx, len_b
+    53 0000003F BE00000000                  mov esi, 0
+    54                                      
+    55                                      Check_sign_b:
+    56 00000044 8A86[05000000]          		mov al, [b+esi]
+    57 0000004A 3C00                            cmp al, 0
+    58 0000004C 7F02                            jg Check_parity_b
+    59 0000004E EB1A                            jmp Do_nothing_b
+    60                                          
+    61                                          Check_parity_b:
+    62 00000050 B400                                mov ah, 0
+    63 00000052 B302                                mov bl, 2
+    64 00000054 F6F3                                div bl
+    65 00000056 80FC00                              cmp ah, 0
+    66 00000059 7B02                                jnp Move_b
+    67 0000005B EB0D                                jmp Do_nothing_b
+    68                                      
+    69                                          Move_b:
+    70 0000005D 8A86[05000000]                      mov al, [b+esi]
+    71 00000063 8887[0A000000]                      mov [r+edi], al    
+    72 00000069 47                                  inc edi
+    73                                          
+    74                                          Do_nothing_b:
+    75                                          
+    76 0000006A 46                              inc esi
+    77                                          
+    78 0000006B E2D7                    	loop Check_sign_b
+    79                                      
+    80                                  	Do_nothing:
+    81                                      ; We finish the program here
+    82                                  
+    83                                  	; exit(0)
+    84 0000006D 6A00                    	push dword 0 ; push the parameter for exit onto the stack
+    85 0000006F FF15[00000000]          	call [exit] ; call exit to terminate the program

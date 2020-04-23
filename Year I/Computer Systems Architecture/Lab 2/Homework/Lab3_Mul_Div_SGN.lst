@@ -1,0 +1,89 @@
+     1                                  bits 32 ;assembling for the 32 bits architecture
+     2                                  global start
+     3                                  
+     4                                  ; we ask the assembler to give global visibility to the symbol called start 
+     5                                  ;(the start label will be the entry point in the program) 
+     6                                  extern exit ; we inform the assembler that the exit symbol is foreign; it exists even if we won't be defining it
+     7                                  import exit msvcrt.dll  ; we specify the external library that defines the symbol
+     8                                          ; msvcrt.dll contains exit, printf and all the other important C-runtime functions
+     9                                  
+    10                                  ; our variables are declared here (the segment is called data) 
+    11                                  segment data use32 class=data
+    12 00000000 11                          a db 11h
+    13 00000001 11                          b db 11h
+    14 00000002 2211                        c dw 1122h
+    15 00000004 44332211                    e dd 11223344h
+    16 00000008 8877665544332211            x dq 1122334455667788h
+    17                                      
+    18                                  ; the program code will be part of a segment called code
+    19                                  segment code use32 class=code
+    20                                  start:
+    21                                  
+    22                                      ; We have to compute: (a+b*c+2/c)/(2+a)+e+x; a,b-byte; c-word; e-doubleword; x-qword
+    23                                      
+    24                                      ; We firstly compute b*c
+    25 00000000 A0[01000000]                mov AL, [b] ; AL = b
+    26 00000005 6698                        cbw         ; AX = b
+    27 00000007 66F72D[02000000]            imul word[c]; DX:AX = b*c = 12342h
+    28                                      
+    29 0000000E 6689D3                      mov BX, DX
+    30 00000011 6689C1                      mov CX, AX
+    31                                      ;BX:CX = DX:AX = b*c = 12342h
+    32                                      
+    33                                      ; We calculate 2/c and store the result in AX at the end, then add it to BX:CX
+    34 00000014 B002                        mov AL, 2   ; AL = 2
+    35 00000016 6698                        cbw         ; AX = 2
+    36 00000018 6699                        cwd         ; DX:AX = 2
+    37 0000001A 66F73D[02000000]            idiv word[c]; AX = 2/c = 0
+    38                                      
+    39 00000021 6699                        cwd         ; DX:AX = 2/c = 0
+    40                                      
+    41                                      ; We add the previous results
+    42 00000023 6601C1                      add CX, AX  ; CX = CX + AX = 2342h
+    43 00000026 6611D3                      adc BX, DX  ; BX = BX + DX + CF = 0001h
+    44                                      ;BX:CX = b*c + 2/c = 12342h
+    45                                      
+    46                                      
+    47                                      ; We add a to the previously obtained result, after extending the register to match the other operand's size
+    48 00000029 A0[00000000]                mov AL, [a] ; AL = a = 11h
+    49 0000002E 6698                        cbw         ; AX = a = 0011h
+    50 00000030 6699                        cwd         ; DX:AX = a = 0000 0011h
+    51                                      
+    52 00000032 6601C1                      add CX, AX  ; CX = CX + AX = 2353h
+    53 00000035 6611D3                      adc BX, DX  ; BX = BX + DX + CF = 0001h + 0 + 0 = 0001h
+    54                                      ;BX:CX = b*c + 2/c + a = 0001 2353h
+    55                                      
+    56 00000038 A0[00000000]                mov AL, [a] ; AL = a = 11h
+    57 0000003D 0402                        add AL, 2   ; AL = a + 2 = 13h
+    58 0000003F 6698                        cbw         ; AX = a + 2 = 0013h
+    59                                      
+    60 00000041 6650                        push AX ; we store the value of AX on the stack
+    61                                  
+    62                                      ; We now move the dividend on DX:AX in order to be able to perform the division
+    63                                      
+    64 00000043 6689DA                      mov DX, BX
+    65 00000046 6689C8                      mov AX, CX
+    66                                      ; DX:AX = b*c + 2/c + a
+    67                                      
+    68 00000049 665B                        pop BX      ; BX = a + 2
+    69                                      
+    70 0000004B 66F7FB                      idiv BX     ; AX = DX:AX / BX = 0F55h
+    71                                      
+    72 0000004E 98                          cwde        ; EAX = (b*c + 2/c + a)/(a + 2) = 00000F55h
+    73                                      
+    74 0000004F 0305[04000000]              add EAX, [e]; EAX = EAX + e = (b*c + 2/c + a)/(a + 2) + e = 11224299h
+    75 00000055 99                          cdq         ; EDX:EAX = b*c + 2/c + a)/(a + 2) + e = 00000000 11224299h
+    76                                      
+    77 00000056 8B1D[08000000]              mov EBX, [x]; EBX = 55667788h
+    78 0000005C 8B0D[0C000000]              mov ECX, [x+4]; ECX = 11223344h
+    79                                      
+    80 00000062 01D8                        add EAX, EBX ; EAX = EAX + EBX = 6688BA21h
+    81 00000064 11CA                        adc EDX, ECX ; EDX = EDX + ECX = 11223344h
+    82                                      
+    83                                      
+    84                                      
+    85                                      
+    86                                      
+    87                                      ; call exit(0) ), 0 represents status code: SUCCESS
+    88 00000066 6A00                        push dword 0 ; saves on stack the parameter of the function exit
+    89 00000068 FF15[00000000]              call [exit] ; function exit is called in order to end the execution of the program

@@ -1,0 +1,56 @@
+     1                                  bits 32
+     2                                  global start
+     3                                  extern exit,scanf,fopen,fprintf,fclose
+     4                                  import exit msvcrt.dll
+     5                                  import scanf msvcrt.dll
+     6                                  import fopen msvcrt.dll
+     7                                  import fprintf msvcrt.dll
+     8                                  import fclose msvcrt.dll
+     9                                  
+    10                                  segment data use32 class=data
+    11 00000000 72322E74787400              nume_fisier db "r2.txt",0
+    12 00000007 FFFFFFFF                    descriptor_fisier dd -1
+    13 0000000B 7700                        mod_acces db "w",0
+    14                                      
+    15 0000000D 256400                      format_citire db "%d",0
+    16 00000010 2D202578202564202D-         format_scriere db "- %x %d -",0
+    16 00000019 00                 
+    17 0000001A 00000000                    numar dd 0
+    18                                  segment code use32 class=code
+    19                                  start:
+    20 00000000 68[0B000000]                push dword mod_acces
+    21 00000005 68[00000000]                push dword nume_fisier
+    22 0000000A FF15[00000000]              call [fopen]
+    23 00000010 83C408                      add esp,8
+    24 00000013 A3[07000000]                mov [descriptor_fisier],eax
+    25 00000018 83F800                      cmp eax,0
+    26 0000001B 7450                        je final
+    27                                      
+    28                                      loop_citire:
+    29 0000001D 68[1A000000]                    push dword numar
+    30 00000022 68[0D000000]                    push dword format_citire
+    31 00000027 FF15[00000000]                  call [scanf]
+    32 0000002D 83C408                          add esp,8
+    33 00000030 833D[1A000000]00                cmp dword [numar],0  ; daca numarul citit este 0 , stop
+    34 00000037 7425                            je stop
+    35                                          
+    36                                          ;altfel :
+    37 00000039 F30FB805[1A000000]              popcnt eax,[numar]
+    38                                          
+    39 00000041 50                              push dword eax
+    40 00000042 FF35[1A000000]                  push dword [numar]
+    41 00000048 68[10000000]                    push dword format_scriere
+    42 0000004D FF35[07000000]                  push dword [descriptor_fisier]
+    43 00000053 FF15[00000000]                  call [fprintf]
+    44 00000059 83C40C                          add esp,12
+    45                                          
+    46 0000005C EBBF                            jmp loop_citire
+    47                                          
+    48                                      stop:
+    49 0000005E FF35[07000000]              push dword [descriptor_fisier]
+    50 00000064 FF15[00000000]              call [fclose]
+    51 0000006A 83C404                      add esp,4
+    52                                      
+    53                                      final:
+    54 0000006D 6A00                        push dword 0
+    55 0000006F FF15[00000000]              call [exit]

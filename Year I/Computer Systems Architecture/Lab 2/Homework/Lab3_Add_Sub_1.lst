@@ -1,0 +1,58 @@
+     1                                  bits 32 ;assembling for the 32 bits architecture
+     2                                  global start
+     3                                  
+     4                                  ; we ask the assembler to give global visibility to the symbol called start 
+     5                                  ;(the start label will be the entry point in the program) 
+     6                                  extern exit ; we inform the assembler that the exit symbol is foreign; it exists even if we won't be defining it
+     7                                  import exit msvcrt.dll  ; we specify the external library that defines the symbol
+     8                                          ; msvcrt.dll contains exit, printf and all the other important C-runtime functions
+     9                                  
+    10                                  ; our variables are declared here (the segment is called data) 
+    11                                  segment data use32 class=data
+    12 00000000 11                          a db 11h
+    13 00000001 2211                        b dw 1122h
+    14 00000003 44332211                    c dd 11223344h
+    15 00000007 8877665544332211            d dq 1122334455667788h
+    16                                      
+    17                                  ; the program code will be part of a segment called code
+    18                                  segment code use32 class=code
+    19                                  start:
+    20                                  
+    21                                      ; we need to compute (d+d)-a-b-c=(d+d)-(a+b+c)
+    22                                      ; firstly, we can compute (a+b+c), then subtract it from (d+d)
+    23                                      
+    24 00000000 66A1[03000000]              mov AX, [c]  ; AX = 3344h
+    25 00000006 668B15[05000000]            mov DX, [c+2]; DX = 1122h
+    26 0000000D 668B0D[01000000]            mov CX, [b]  ; CX = 1122h
+    27 00000014 66BB0000                    mov BX, 0    ; BX = 0000h
+    28                                      
+    29 00000018 6601C8                      add AX, CX   ; AX = AX + CX = 3344h + 1122h = 4466h
+    30 0000001B 6611DA                      adc DX, BX   ; DX = DX + BX + CF = 1122h + 0000h + 0 = 1122h
+    31                                      
+    32 0000001E 8A0D[00000000]              mov CL, [a]  ; CL = 11h  ---> CX = 0011h
+    33 00000024 B500                        mov CH, 0    ; CX = 0011h
+    34                                  
+    35 00000026 66BB0000                    mov BX, 0    ; BX = 0000h
+    36                                      ; BX:CX = 0000 0011h
+    37                                      
+    38 0000002A 6601C8                      add AX, CX   ; AX = AX + CX = 4466h + 0011h = 4477h
+    39 0000002D 6611DA                      adc DX, BX   ; DX = DX + BX + CF = 1122h + 0000h + 0 = 1122h
+    40                                      
+    41 00000030 6652                        push  DX     ; the high part of the doubleword DX:AX is saved on the stack
+    42 00000032 6650                    	push  AX     ; the low part of the doubleword DX:AX is saved on the stack
+    43 00000034 59                      	pop  ECX     ; ECX = 11224477h
+    44                                      
+    45 00000035 BB00000000                  mov EBX, 0   ; EBX = 00000000h
+    46                                      ; EBX:ECX = 0000000011224477h
+    47                                      
+    48 0000003A A1[07000000]                mov EAX, [d]  ; EAX = 55667788h
+    49 0000003F 8B15[0B000000]              mov EDX, [d+4]; EDX = 11223344h
+    50 00000045 01C0                        add EAX, EAX  ; EAX = EAX + EAX = 55667788h + 55667788h = AACCEF10h
+    51 00000047 11D2                        adc EDX, EDX  ; EDX = EDX + EDX = 11223344h + 11223344h = 22446688h
+    52                                      
+    53 00000049 29C8                        sub EAX, ECX  ; EAX = EAX - ECX = AACCEF10h - 11224477h = 99AAAA99h
+    54 0000004B 19DA                        sbb EDX, EBX  ; EDX = EDX - EBX - CF = 22446688h - 00000000h - 0 = 22446688h
+    55                                      
+    56                                      ; call exit(0) ), 0 represents status code: SUCCESS
+    57 0000004D 6A00                        push dword 0 ; saves on stack the parameter of the function exit
+    58 0000004F FF15[00000000]              call [exit] ; function exit is called in order to end the execution of the program

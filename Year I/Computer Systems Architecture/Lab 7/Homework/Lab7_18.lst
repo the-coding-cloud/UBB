@@ -1,0 +1,100 @@
+     1                                  ; The code below will print message ”n=”, then will read from keyboard the value of perameter n.
+     2                                  ; Read a decimal number and a hexadecimal number from the keyboard. Display the number of 1's of the sum of the two numbers in binary format.
+     3                                  
+     4                                  bits 32
+     5                                  
+     6                                  global start        
+     7                                  
+     8                                  ; declare extern functions used by the programme
+     9                                  extern exit, printf, scanf ; add printf and scanf as extern functions            
+    10                                  import exit msvcrt.dll    
+    11                                  import printf msvcrt.dll    ; tell the assembler that function printf is found in msvcrt.dll library
+    12                                  import scanf msvcrt.dll     ; similar for scanf
+    13                                                            
+    14                                  segment data use32 class=data
+    15 00000000 0000                    	a dw 0       ; in this variable we will store the decimal value read from the keyboard
+    16 00000002 0000                        b dw 0       ; in this variable we will store the hexadecimal value read from the keyboard
+    17                                      
+    18                                      ; char strings are of type byte
+    19 00000004 496E74726F64756365-     	message1  db "Introduceti un nr (in decimal)", 0      ; char strings for C functions must terminate with 0(value, not char)
+    19 0000000D 746920756E206E7220-
+    19 00000016 28696E20646563696D-
+    19 0000001F 616C2900           
+    20 00000023 496E74726F64756365-         message2  db "Introduceti un nr (in hexadecimal)", 0  ; char strings for C functions must terminate with 0(value, not char)
+    20 0000002C 746920756E206E7220-
+    20 00000035 28696E206865786164-
+    20 0000003E 6563696D616C2900   
+    21                                      
+    22 00000046 256400                  	format_1  db "%d", 0  ; %d <=> decimal number (base 10)
+    23 00000049 257800                      format_2  db "%x", 0  ; %x <=> hexadecimal number (base 16)
+    24 0000004C 4E756D6172756C2065-         format_3 db "Numarul este %d", 0 ; %d will be replaced with our result
+    24 00000055 73746520256400     
+    25                                      
+    26                                  segment code use32 class=code
+    27                                      start:
+    28                                         
+    29                                          ; will call printf(message)
+    30                                          ; place parameters on stack
+    31 00000000 68[04000000]                    push dword message1 ; ! on the stack we place the address of the string, not its value
+    32 00000005 FF15[00000000]                  call [printf]       ; call function printf for printing
+    33 0000000B 83C404                          add esp, 4*1        ; free parameters on the stack; 4 = size of dword; 1 = number of parameters
+    34                                                                                     
+    35                                          ; will call scanf(format_1, a) => will read a number in variable a
+    36                                          ; place parameters on stack from right to left
+    37 0000000E 68[00000000]                    push dword a       ; ! address of a, not value
+    38 00000013 68[46000000]                    push dword format_1
+    39 00000018 FF15[00000000]                  call [scanf]       ; call function scanf for reading
+    40 0000001E 83C408                          add esp, 4 * 2     ; free parameters on the stack
+    41                                                             ; 4 = size of a dword; 2 = no of perameters
+    42                                                             
+    43                                          ; will call printf(message) again
+    44                                          ; place parameters on stack
+    45 00000021 68[23000000]                    push dword message2 ; ! on the stack we place the address of the string, not its value
+    46 00000026 FF15[00000000]                  call [printf]       ; call function printf for printing
+    47 0000002C 83C404                          add esp, 4*1        ; free parameters on the stack; 4 = size of dword; 1 = number of parameters
+    48                                                                                     
+    49                                          ; will call scanf(format_2, b) => will read a number in variable b
+    50                                          ; place parameters on stack from right to left
+    51 0000002F 68[02000000]                    push dword b       ; ! address of b, not value
+    52 00000034 68[49000000]                    push dword format_2
+    53 00000039 FF15[00000000]                  call [scanf]       ; call function scanf for reading
+    54 0000003F 83C408                          add esp, 4 * 2     ; free parameters on the stack
+    55                                                             ; 4 = size of a dword; 2 = no of perameters
+    56                                          
+    57 00000042 66A1[00000000]                  mov ax, [a]  ; we move a to ax
+    58 00000048 660305[02000000]                add ax, [b]  ; we add b to ax
+    59                                          ; we compute everything in ax from the beginning, because we will use div afterwards
+    60                                          
+    61 0000004F 6683F800                        cmp ax, 0    ; we want to see if the sum is 0
+    62 00000053 7415                            jz print_0   ; if the sum is 0, there's no need to execute the next part and we can directly skip to printing 0 on the screen
+    63                                          
+    64 00000055 B500                            mov ch, 0    ; here we will store how many 1's appear in the binary representation
+    65 00000057 B102                            mov cl, 2    ; we will further use this register for repeated divisions by 2
+    66                                          
+    67                                          repeta:
+    68 00000059 F6F1                                div cl          ; we divide ax by 2 and then analyze the results from the division
+    69 0000005B 80FC01                              cmp ah, 1       ; we compare the remainder to 1
+    70 0000005E 7502                                jnz next_step   ; if the remainder is not 1, we can directly jump to the next step
+    71 00000060 FEC5                                inc ch          ; if the remainder was 1, we increment ch, because we found another 1 in the binary representation
+    72                                              
+    73                                              next_step:
+    74 00000062 3C00                                cmp al, 0           ; we want to see if the quotient is 0
+    75 00000064 7406                                jz print_result  ; if the quotient is 0, we can directly skip to the end
+    76 00000066 B400                                mov ah, 0           ; if the quotient is not 0, we set ah to 0 to that we can perform further divisions with ax
+    77 00000068 EBEF                                jmp repeta          ; we go again to the beginning
+    78                                              
+    79                                          
+    80                                          print_0:
+    81 0000006A B500                            mov ch, 0   ; if the sum was 0, we just set ch to 0
+    82                                  
+    83                                          print_result:
+    84 0000006C BB00000000                      mov ebx, 0  ; we will store the final result in ebx because we need to place 32 bits on the stack
+    85 00000071 88EB                            mov bl, ch  ; we move ch to bl
+    86 00000073 53                              push ebx    ; we place ebx on the stack
+    87 00000074 68[4C000000]                    push dword format_3 ; ! on the stack is placed the address of the string, not its value
+    88 00000079 FF15[00000000]                  call [printf]      ; call function printf for printing 
+    89 0000007F 83C408                          add esp, 4 * 2
+    90                                          
+    91                                          ; exit(0)
+    92 00000082 6A00                            push dword 0      ; place on stack parameter for exit
+    93 00000084 FF15[00000000]                  call [exit]       ; call exit to terminate the program

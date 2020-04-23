@@ -1,0 +1,77 @@
+     1                                  ; A string of doublewords is given. Order in increasing order the string of the high words (most significant) from these doublewords.
+     2                                  ; The low words (least significant) remain unchanged.
+     3                                  
+     4                                  
+     5                                  bits 32 ; assembling for the 32 bits architecture
+     6                                  
+     7                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     8                                  global start        
+     9                                  
+    10                                  ; declare external functions needed by our program
+    11                                  extern exit               ; tell nasm that exit exists even if we won't be defining it
+    12                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+    13                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    14                                  
+    15                                  ; our data is declared here (the variables needed by our program)
+    16                                  segment data use32 class=data
+    17 00000000 7856AB12CDAB561244-         string DD 12AB5678h, 1256ABCDh, 12344344h
+    17 00000009 433412             
+    18                                      len EQU ($-string)/4 ; This variable will store the length of the string; the division by 4 occurs because we store a string of dwords
+    19 0000000C <res 0000000C>              dest RESD len     ; We reserve a space in the memory for the destination string (we basically reserve the space necessary for a dword times the length of the initial string)
+    20 00000018 00000000                    len_dest DD 0     ; This variable stores the length of the new string of dwords - we initialize it with 0 because we will perform insertion sort
+    21                                  
+    22                                      
+    23                                  ; our code starts here
+    24                                  segment code use32 class=code
+    25                                      start:
+    26                                      ; The method used in this exercise is Insertion Sort
+    27                                      ; We sort the dwords using this algorithm, then 
+    28 00000000 B903000000                      MOV ECX, len    ; We will have len iterations in the loop
+    29 00000005 BE[00000000]                    MOV ESI, string ; We initialize ESI with the address of string
+    30 0000000A FC                              CLD             ; The comparisons will take place from left to right
+    31 0000000B E359                            JECXZ finish    ; If the length of the string is 0, we directly jump to the end of the program
+    32                                          
+    33                                          ; This is the main loop, where we do the sort
+    34                                          outer_loop:
+    35 0000000D B800000000                          MOV EAX, 0 ; This is how we ensure the high part of the dword is 0, so that the comparisons takes place properly
+    36 00000012 66AD                                LODSW      ; We firstly load the low part of the current dword in AX
+    37 00000014 66AD                                LODSW      ; We now load the high part of the current dword in AX and use it for the comparisons in insertion sort
+    38 00000016 51                                  push ECX   ; We store the current value of ECX, which we will need later, in the stack, because in the inner loop we need different values of ECX
+    39 00000017 8B0D[18000000]                      MOV ECX, [len_dest] ; We set the value of ECX to the value of the current destination string of dwords length
+    40 0000001D E319                                JECXZ skip          ; If the length of the destination string is 0, we go directly to the skip label
+    41                                              
+    42                                              inner_loop:
+    43                                              ; Now we properly do the insertion part of the insertion sort
+    44                                              ; At the offset (ECX-1)*4 is the element to be compared with AX --- multiplication with 4 is required for pointer arithmetic, because we work with dwords (4*byte)
+    45 0000001F 3B048D[08000000]                        CMP EAX, [dest+(ECX-1)*4]  ; We compare the words (the high part of the words is ensured to be 0)
+    46 00000026 7710                                    JA skip                    ; If AX is bigger, no more comparisons are needed and we can directly go to the skip label, then insert EAX in the destination string 
+    47 00000028 8B1C8D[08000000]                        MOV EBX, [dest + (ECX-1)*4]; If AX is smaller, we "shift" the current value in the destination string to the right, in order to "make space" for the element to be inserted
+    48 0000002F 891C8D[0C000000]                        MOV [dest + ECX*4], EBX    ; We used the EBX register to shift the value
+    49 00000036 E2E7                                loop inner_loop
+    50                                              
+    51                                              skip:
+    52 00000038 89048D[0C000000]                    MOV [dest+ECX*4], EAX ; We now insert EAX in the destination string - at the moment, the high part of the dwords in the initial string are stored as low parts, so we need to shift it later
+    53 0000003F FF05[18000000]                      INC dword[len_dest]   ; The destination string has now one more element, so we increase the variable that stores the destination string length
+    54 00000045 59                                  pop ECX               ; We now restore the previous value of ECX in order to continue the outer loop
+    55 00000046 E2C5                            loop outer_loop
+    56                                          
+    57                                          
+    58                                          ; We will now shift the low parts of the dwords in the destination string in order to make them high parts and then move the low parts of the dwords
+    59                                          ; of the source string in the destination string
+    60 00000048 B903000000                      MOV ECX, len    ; We could also use len_dest, because at this point they are both equal
+    61 0000004D BE[00000000]                    MOV ESI, string ; We initialize ESI
+    62 00000052 BF[0C000000]                    MOV EDI, dest   ; We initialize EDI
+    63                                          
+    64                                          loop_3:
+    65 00000057 66AD                                LODSW               ; We load the low part of the current dword in the source string in AX
+    66 00000059 C12710                              SHL dword[EDI], 16  ; We shift the low part from the current dword in the destination string to the lift, thus making it a high part now
+    67 0000005C 66AB                                STOSW               ; We store the low part of the current dword in the source string as the low part of the current dword in the destination string
+    68 0000005E 83C602                              ADD ESI, 2          ; We move to the next dword in the source string
+    69 00000061 83C702                              ADD EDI, 2          ; We move to the next dword in the destination string
+    70 00000064 E2F1                            loop loop_3
+    71                                          
+    72                                          finish:
+    73                                      
+    74                                          ; exit(0)
+    75 00000066 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    76 00000068 FF15[00000000]                  call    [exit]       ; call exit to terminate the program

@@ -1,0 +1,137 @@
+     1                                  
+     2                                  bits 32
+     3                                  
+     4                                  global start        
+     5                                  
+     6                                  
+     7                                  extern exit, printf, scanf, fopen, fprintf, fread, fclose
+     8                                  import exit msvcrt.dll    
+     9                                  import printf msvcrt.dll    
+    10                                  import scanf msvcrt.dll  
+    11                                  import fopen msvcrt.dll
+    12                                  import fprintf msvcrt.dll
+    13                                  import fread msvcrt.dll
+    14                                  import fclose msvcrt.dll
+    15                                                            
+    16                                  segment data use32 class=data
+    17 00000000 00000000                	mere dd  0      
+    18                                    
+    19 00000004 43617465206D657265-     	message  db "Cate mere? ", 0  
+    19 0000000D 3F2000             
+    20 00000010 256400                  	format1  db "%d", 0
+    21                                      
+    22 00000013 6F75747075742E7478-         file_name_1 db "output.txt", 0 
+    22 0000001C 7400               
+    23 0000001E 7700                        write_mode db "w", 0 
+    24 00000020 6100                        append_mode db "a", 0
+    25                                      
+    26 00000022 696E7075742E747874-         file_name_2 db "input.txt", 0
+    26 0000002B 00                 
+    27 0000002C 7200                        read_mode db "r", 0
+    28                                      
+    29 0000002E FFFFFFFF                    file_descriptor_1 dd -1
+    30 00000032 FFFFFFFF                    file_descriptor_2 dd -1                  
+    31 00000036 416E61206172652025-         format2 db "Ana are %d mere ",0
+    31 0000003F 64206D6572652000   
+    32                                      
+    33 00000047 256300                      format3 db "%c", 0
+    34                                      
+    35                                      
+    36                                      len equ 20                   
+    37 0000004A 00<rept>                    text times len db 0    
+    38                                      
+    39                                  segment code use32 class=code
+    40                                      start:
+    41                                         
+    42                                          ; PART I - READING FROM KEYBOARD
+    43 00000000 68[04000000]                    push dword message 
+    44 00000005 FF15[00000000]                  call [printf]      
+    45 0000000B 83C404                          add esp, 4*1                                          
+    46                                  
+    47 0000000E 68[00000000]                    push dword mere    
+    48 00000013 68[10000000]                    push dword format1
+    49 00000018 FF15[00000000]                  call [scanf]      
+    50 0000001E 83C408                          add esp, 4 * 2
+    51                                          
+    52                                          ; PART II - CREATING OUTPUT FILE
+    53 00000021 68[1E000000]                    push dword write_mode    
+    54 00000026 68[13000000]                    push dword file_name_1
+    55 0000002B FF15[00000000]                  call [fopen]
+    56 00000031 83C408                          add esp, 4*2                
+    57                                  
+    58 00000034 A3[2E000000]                    mov [file_descriptor_1], eax 
+    59                                          
+    60 00000039 83F800                          cmp eax, 0
+    61 0000003C 0F84CF000000                    je final
+    62                                          
+    63                                          ; PART III - WRITING INTO THE OUTPUT FILE
+    64 00000042 FF35[00000000]                  push dword [mere]
+    65 00000048 68[36000000]                    push dword format2
+    66 0000004D FF35[2E000000]                  push dword [file_descriptor_1]
+    67 00000053 FF15[00000000]                  call [fprintf]
+    68 00000059 83C40C                          add esp, 4*3
+    69                                          
+    70                                          
+    71                                          
+    72                                          ; PART IV - OPENING THE INPUT FILE
+    73 0000005C 68[2C000000]                    push dword read_mode    
+    74 00000061 68[22000000]                    push dword file_name_2
+    75 00000066 FF15[00000000]                  call [fopen]
+    76 0000006C 83C408                          add esp, 4*2
+    77                                          
+    78 0000006F A3[32000000]                    mov [file_descriptor_2], eax
+    79                                          
+    80 00000074 83F800                          cmp eax, 0
+    81 00000077 0F8494000000                    je final
+    82                                          
+    83                                          ; PART V - READING FROM THE INPUT FILE
+    84 0000007D FF35[32000000]                  push dword [file_descriptor_2]
+    85 00000083 6A14                            push dword len
+    86 00000085 6A01                            push dword 1
+    87 00000087 68[4A000000]                    push dword text
+    88 0000008C FF15[00000000]                  call [fread]
+    89 00000092 83C410                          add esp, 4*4
+    90                                              
+    91 00000095 83F800                          cmp eax, 0
+    92 00000098 7477                            je final
+    93                                          
+    94 0000009A A0[4D000000]                    mov al, [text+3]
+    95                                          
+    96 0000009F 68[4A000000]                    push dword text
+    97 000000A4 FF35[2E000000]                  push dword [file_descriptor_1]
+    98 000000AA FF15[00000000]                  call [fprintf]
+    99 000000B0 83C40C                          add esp, 4*3
+   100                                          
+   101 000000B3 2C30                            sub al, "0"  ; tried to 
+   102 000000B5 88C3                            mov bl, al
+   103 000000B7 B800000000                      mov eax, 0
+   104 000000BC 88D8                            mov al, bl
+   105                                          
+   106 000000BE 0305[00000000]                  add eax, dword[mere]
+   107                                          
+   108 000000C4 BB0A000000                      mov ebx, 0ah
+   109                                          
+   110 000000C9 53                              push ebx
+   111 000000CA 68[47000000]                    push format3
+   112 000000CF FF35[2E000000]                  push dword [file_descriptor_1]
+   113 000000D5 FF15[00000000]                  call [fprintf]
+   114 000000DB 83C40C                          add esp, 4*3
+   115                                          
+   116 000000DE 50                              push eax
+   117 000000DF 68[10000000]                    push format1
+   118 000000E4 FF35[2E000000]                  push dword [file_descriptor_1]
+   119 000000EA FF15[00000000]                  call [fprintf]
+   120 000000F0 83C40C                          add esp, 4*3
+   121                                          
+   122 000000F3 FF35[2E000000]                  push dword [file_descriptor_1]
+   123 000000F9 FF15[00000000]                  call [fclose]
+   124 000000FF 83C404                          add esp, 4
+   125                                          
+   126 00000102 FF35[32000000]                  push dword [file_descriptor_2]
+   127 00000108 FF15[00000000]                  call [fclose]
+   128 0000010E 83C404                          add esp, 4
+   129                                          
+   130                                          final:
+   131                                          ; exit(0)
+   132 00000111 6A00                            push dword 0      ; place on stack parameter for exit
+   133 00000113 FF15[00000000]                  call [exit]       ; call exit to terminate the program

@@ -1,0 +1,220 @@
+     1                                  ;Read from file numbers.txt a string of numbers (positive and negative). Build two strings using read numbers:
+     2                                  ;P – only with positive numbers
+     3                                  ;N – only with negative numbers
+     4                                  ;Display the strings on the screen.
+     5                                  
+     6                                  bits 32 ; assembling for the 32 bits architecture
+     7                                  
+     8                                  ; declare the EntryPoint (a label defining the very first instruction of the program)
+     9                                  global start        
+    10                                  
+    11                                  ; declare external functions needed by our program
+    12                                  extern exit, fopen, fread, fclose, printf           ; tell nasm that exit exists even if we won't be defining it
+    13                                  import exit msvcrt.dll    ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+    14                                                            ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+    15                                  import fopen msvcrt.dll
+    16                                  import fread msvcrt.dll
+    17                                  import fclose msvcrt.dll
+    18                                  import printf msvcrt.dll
+    19                                  
+    20                                  ; our data is declared here (the variables needed by our program)
+    21                                  segment data use32 class=data
+    22 00000000 6E756D626572732E74-         file_name db "numbers.txt", 0   ; filename to be read --- in our case "input.txt"
+    22 00000009 787400             
+    23 0000000C 7200                        access_mode db "r", 0         ; r - opens a file for reading. The file must exist. 
+    24 0000000E FFFFFFFF                    file_descriptor dd -1         ; variable to hold the file descriptor
+    25                                      len equ 100                   ; maximum number of characters to read
+    26 00000012 00<rept>                    text times len db 0           ; string to hold the text which is read from file
+    27 00000076 0000<rept>                  positive times len dw 0
+    28 0000013E 0000<rept>                  negative times len dw 0
+    29 00000206 25642000                    format db "%d ",0
+    30 0000020A 0A00                        new_line db 0xA,0
+    31                                      
+    32                                  ; our code starts here
+    33                                  segment code use32 class=code
+    34                                      start:
+    35                                          ; Call fopen() to create the file
+    36                                          ; fopen() will return a file descriptor in the EAX or 0 in case of error
+    37                                          ; eax = fopen(file_name, access_mode)
+    38 00000000 68[0C000000]                    push dword access_mode     
+    39 00000005 68[00000000]                    push dword file_name
+    40 0000000A FF15[00000000]                  call [fopen]
+    41 00000010 83C408                          add esp, 4*2                ; Clean-up the stack
+    42                                  
+    43 00000013 A3[0E000000]                    mov [file_descriptor], eax  ; Store the file descriptor returned by fopen
+    44                                  
+    45                                          ; Check if fopen() has successfully opened the file (EAX != 0)
+    46 00000018 83F800                          cmp eax, 0
+    47 0000001B 0F8435010000                    je final   ; If the file does not exist or an error occured, we just directly to the end of the code
+    48                                          
+    49                                          ; Read the text from file using fread()
+    50                                          ; After the fread() call, EAX will contain the number of chars we've read 
+    51                                          ; eax = fread(text, 1, len, file_descriptor)        
+    52 00000021 FF35[0E000000]                  push dword [file_descriptor]
+    53 00000027 6A64                            push dword len
+    54 00000029 6A01                            push dword 1
+    55 0000002B 68[12000000]                    push dword text
+    56 00000030 FF15[00000000]                  call [fread]
+    57 00000036 83C410                          add esp, 4*4
+    58                                              
+    59                                          ; If we haven't read any new element, we jump to the next part
+    60 00000039 83F800                          cmp eax, 0
+    61 0000003C 0F8414010000                    je final
+    62                                          
+    63 00000042 BE[12000000]                    mov esi, text
+    64 00000047 BF[76000000]                    mov edi, positive
+    65 0000004C 66B80000                        mov ax, 0
+    66 00000050 B100                            mov cl, 0
+    67                                          
+    68                                          do_positive_numbers:
+    69 00000052 8A1E                                mov bl, [esi]
+    70 00000054 46                                  inc esi
+    71 00000055 80FB20                              cmp bl, ' '
+    72 00000058 7426                                je space_case_pos
+    73                                              
+    74 0000005A 80FB2D                              cmp bl, '-'
+    75 0000005D 741D                                je set_to_neg_p
+    76                                              
+    77 0000005F 80FB00                              cmp bl, 0
+    78 00000062 742F                                je end_of_positive_numbers
+    79                                              
+    80 00000064 80F900                              cmp cl, 0
+    81 00000067 7402                                je compute_pos_number
+    82                                              
+    83 00000069 EBE7                                jmp do_positive_numbers
+    84                                              
+    85                                              compute_pos_number:
+    86 0000006B 66BA0A00                            mov dx, 10
+    87 0000006F 66F7E2                              mul dx
+    88 00000072 80EB30                              sub bl, '0'
+    89 00000075 B700                                mov bh, 0
+    90 00000077 6601D8                              add ax, bx
+    91 0000007A EBD6                                jmp do_positive_numbers
+    92                                              
+    93                                              set_to_neg_p:
+    94 0000007C B101                                    mov cl, 1
+    95 0000007E EBD2                                    jmp do_positive_numbers
+    96                                                  
+    97                                              space_case_pos:
+    98 00000080 80F900                                  cmp cl, 0
+    99 00000083 7506                                    jne skip_move_pos_number
+   100                                          
+   101 00000085 668907                                  mov [edi], ax
+   102 00000088 83C702                                  add edi, 2
+   103                                                  
+   104                                                  skip_move_pos_number:
+   105 0000008B 66B80000                                mov ax, 0
+   106 0000008F B100                                    mov cl, 0
+   107 00000091 EBBF                                    jmp do_positive_numbers
+   108                                              
+   109                                              end_of_positive_numbers:
+   110 00000093 80F900                                  cmp cl, 0
+   111 00000096 7506                                    jne skip_move_final_number
+   112                                          
+   113 00000098 668907                                  mov [edi], ax
+   114 0000009B 83C702                                  add edi, 2
+   115                                                  skip_move_final_number:
+   116                                         
+   117                                          
+   118 0000009E BE[12000000]                    mov esi, text
+   119 000000A3 BF[3E010000]                    mov edi, negative
+   120 000000A8 66B80000                        mov ax, 0
+   121 000000AC B100                            mov cl, 0
+   122                                          
+   123                                          do_negative_numbers:
+   124 000000AE 8A1E                                mov bl, [esi]
+   125 000000B0 46                                  inc esi  
+   126                                                 
+   127 000000B1 80FB20                              cmp bl, ' '
+   128 000000B4 7426                                je space_case_neg
+   129                                              
+   130 000000B6 80FB2D                              cmp bl, '-'
+   131 000000B9 741D                                je set_to_neg_n
+   132                                              
+   133 000000BB 80FB00                              cmp bl, 0
+   134 000000BE 7432                                je end_of_negative_numbers
+   135                                              
+   136 000000C0 80F901                              cmp cl, 1
+   137 000000C3 7402                                je compute_neg_number
+   138                                              
+   139 000000C5 EBE7                                jmp do_negative_numbers
+   140                                              
+   141                                              compute_neg_number:
+   142 000000C7 66BA0A00                            mov dx, 10
+   143 000000CB 66F7E2                              mul dx
+   144 000000CE 80EB30                              sub bl, '0'
+   145 000000D1 B700                                mov bh, 0
+   146 000000D3 6601D8                              add ax, bx
+   147 000000D6 EBD6                                jmp do_negative_numbers
+   148                                              
+   149                                              set_to_neg_n:
+   150 000000D8 B101                                    mov cl, 1
+   151 000000DA EBD2                                    jmp do_negative_numbers
+   152                                                  
+   153                                              space_case_neg:
+   154 000000DC 80F900                                  cmp cl, 0
+   155 000000DF 7409                                    je skip_move_neg_number
+   156                                                  
+   157 000000E1 66F7D8                                  neg ax
+   158 000000E4 668907                                  mov [edi], ax
+   159 000000E7 83C702                                  add edi, 2
+   160                                                  
+   161                                                  skip_move_neg_number:
+   162 000000EA 66B80000                                mov ax, 0
+   163 000000EE B100                                    mov cl, 0
+   164 000000F0 EBBC                                    jmp do_negative_numbers
+   165                                                  
+   166                                              end_of_negative_numbers:
+   167 000000F2 80F900                                  cmp cl, 0
+   168 000000F5 7409                                    je printing
+   169                                                  
+   170 000000F7 66F7D8                                  neg ax
+   171 000000FA 668907                                  mov [edi], ax
+   172 000000FD 83C702                                  add edi, 2
+   173                                          
+   174                                          printing:
+   175                                          
+   176 00000100 BE[76000000]                    mov esi, positive
+   177                                          print_pos:
+   178 00000105 B800000000                          mov eax, 0
+   179 0000010A 668B06                              mov ax, [esi]
+   180 0000010D 83C602                              add esi, 2
+   181                                              
+   182 00000110 83F800                              cmp eax, 0
+   183 00000113 7411                                je next
+   184                                              
+   185 00000115 50                                  push dword eax
+   186 00000116 68[06020000]                        push dword format ; ! on the stack is placed the address of the string, not its value
+   187 0000011B FF15[00000000]                      call [printf]     ; call function printf for printing 
+   188 00000121 83C408                              add esp, 4 * 2     ; free parameters on the stack; 4 = size of dword; 2 = number of parameters
+   189                                              
+   190 00000124 EBDF                                jmp print_pos
+   191                                          
+   192                                          next: 
+   193                                          
+   194 00000126 68[0A020000]                        push dword new_line ; ! on the stack is placed the address of the string, not its value
+   195 0000012B FF15[00000000]                      call [printf]     ; call function printf for printing 
+   196 00000131 83C404                              add esp, 4    ; free parameters on the stack; 4 = size of dword; 2 = number of parameters
+   197                                          
+   198 00000134 BE[3E010000]                    mov esi, negative
+   199                                          print_neg:
+   200 00000139 668B06                              mov ax, [esi]
+   201 0000013C 98                                  cwde
+   202 0000013D 83C602                              add esi, 2
+   203                                              
+   204 00000140 83F800                              cmp eax, 0
+   205 00000143 7411                                je final
+   206                                              
+   207 00000145 50                                  push dword eax
+   208 00000146 68[06020000]                        push dword format ; ! on the stack is placed the address of the string, not its value
+   209 0000014B FF15[00000000]                      call [printf]     ; call function printf for printing 
+   210 00000151 83C408                              add esp, 4 * 2     ; free parameters on the stack; 4 = size of dword; 2 = number of parameters
+   211                                              
+   212 00000154 EBE3                                jmp print_neg
+   213                                          
+   214                                          final:
+   215                                          
+   216                                      
+   217                                          ; exit(0)
+   218 00000156 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+   219 00000158 FF15[00000000]                  call    [exit]       ; call exit to terminate the program

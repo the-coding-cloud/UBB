@@ -1,0 +1,40 @@
+     1                                  bits 32 ;assembling for the 32 bits architecture
+     2                                  global start
+     3                                  
+     4                                  ; we ask the assembler to give global visibility to the symbol called start 
+     5                                  ;(the start label will be the entry point in the program) 
+     6                                  extern exit ; we inform the assembler that the exit symbol is foreign; it exists even if we won't be defining it
+     7                                  import exit msvcrt.dll  ; we specify the external library that defines the symbol
+     8                                          ; msvcrt.dll contains exit, printf and all the other important C-runtime functions
+     9                                          
+    10                                  ; f+(c-2)*(3+a)/(d-4)
+    11                                  
+    12                                  ; our variables are declared here (the segment is called data) 
+    13                                  segment data use32 class=data
+    14 00000000 0A                          a db 10
+    15 00000001 14                          c db 20
+    16 00000002 1D                          d db 29
+    17 00000003 F401                        f dw 500
+    18                                  
+    19                                  ; the program code will be part of a segment called code
+    20                                  segment code use32 class=code
+    21                                  start:
+    22                                  
+    23 00000000 A0[01000000]                mov AL, [c]; AL = c = 20
+    24 00000005 2C02                        sub AL, 2; AL = 20 - 2 = 18
+    25 00000007 B303                        mov BL, 3; BL = 3
+    26 00000009 021D[00000000]              add BL, [a]; BL = BL + a = 3 + 10 = 13
+    27 0000000F F6E3                        mul BL; AX = AL * BL = 18 * 13 = 234
+    28                                      
+    29 00000011 8A1D[02000000]              mov BL, [d]; BL = 29
+    30 00000017 80EB04                      sub BL, 4; BL = 25
+    31                                      
+    32 0000001A F6F3                        div BL; AL = AX / BL = 9, AH = AX % BL = 9
+    33                                      
+    34 0000001C 6698                        cbw
+    35 0000001E 668B1D[03000000]            mov BX, [f]; BX = f = 500
+    36 00000025 6601D8                      add AX, BX; AX = AX + BX = 509
+    37                                  
+    38                                      ; call exit(0) ), 0 represents status code: SUCCESS
+    39 00000028 6A00                        push dword 0 ; saves on stack the parameter of the function exit
+    40 0000002A FF15[00000000]              call [exit] ; function exit is called in order to end the execution of the program

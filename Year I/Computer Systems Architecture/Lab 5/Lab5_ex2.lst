@@ -1,0 +1,27 @@
+     1                                  ;Se da un sir de caractere format din litere mici.
+     2                                  ;Sa se transforme acest sir in sirul literelor mari corespunzator.
+     3                                  bits 32 
+     4                                  global start        
+     5                                  extern exit,printf ; tell nasm that exit exists even if we won't be defining it
+     6                                  import exit msvcrt.dll ; exit is a function that ends the calling process. It is defined in msvcrt.dll
+     7                                  import printf msvcrt.dll
+     8                                  ; msvcrt.dll contains exit, printf and all the other important C-runtime specific functions
+     9                                  ; our data is declared here (the variables needed by our program)
+    10                                  segment data use32 class=data
+    11                                  
+    12                                  segment code use32 class=code
+    13                                  start:
+    14 00000000 B0FC                    	mov al, -4
+    15 00000002 B302                        mov bl, 2
+    16 00000004 38D8                        cmp al, bl
+    17 00000006 7F04                        jG et1
+    18                                      et0:
+    19 00000008 88D9                            mov cl, bl
+    20 0000000A EB02                            jmp iesire
+    21                                      et1:
+    22 0000000C 88C1                            mov cl, al
+    23                                      iesire:
+    24                                  
+    25                                  	; exit(0)
+    26 0000000E 6A00                    	push dword 0 ; push the parameter for exit onto the stack
+    27 00000010 FF15[00000000]          	call [exit] ; call exit to terminate the program
