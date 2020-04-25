@@ -61,7 +61,7 @@ fprintf('\n')
 fprintf('PASCAL\n')
 np=4;
 
-w=zeros(1,S);
+W=zeros(1,S);
 for i=1:S
     Wi=zeros(1,np);
     for j=1:np

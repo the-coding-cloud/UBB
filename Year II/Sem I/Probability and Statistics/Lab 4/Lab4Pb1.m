@@ -1,7 +1,6 @@
 clear all
 clc
 close all
-% PROBLEMA 1
 
 N=10000;
 
