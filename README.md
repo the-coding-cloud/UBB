@@ -71,11 +71,6 @@ Includes the assignments delivered in my first and second year at UBB.
         <a href="https://github.com/the-coding-cloud/UBB/tree/master/Year%20II/Sem%20II/AI">
           Artificial Intelligence
       </li>
-      <li>
-        <a href="https://github.com/Pufcorina/Software-Engineering">
-          Software Engineering
-        </a>
-      </li>
     </ul>
   </li>
 </ul>
